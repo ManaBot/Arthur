@@ -1,0 +1,49 @@
+plugins {
+    id 'groovy'
+
+    id 'idea'
+    id 'eclipse'
+
+    id 'net.minecrell.licenser' version '0.2.1'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+defaultTasks 'clean', 'licenseFormat'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = 'uk.jamierocks.mana'
+archivesBaseName = project.name.toLowerCase()
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+license {
+    header file('HEADER.txt')
+}
+
+jar {
+    classifier = 'base'
+
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': version,
+                'Main-Class': 'uk.jamierocks.mana.arthur.Main'
+        )
+    }
+}
+
+shadowJar {
+    classifier = ''
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+}
